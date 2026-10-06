@@ -53,7 +53,11 @@ function load_database_environment(string $file): void
     }
 }
 
-load_database_environment(dirname(__DIR__) . DIRECTORY_SEPARATOR . '.env');
+$environmentFile = getenv('ESUDHA_ENV_FILE');
+if ($environmentFile === false || trim($environmentFile) === '') {
+    $environmentFile = dirname(__DIR__) . DIRECTORY_SEPARATOR . '.env';
+}
+load_database_environment($environmentFile);
 
 function database(): PDO
 {
